@@ -660,7 +660,7 @@ module.exports = function(Chart) {
 
 			// Draw all of the tick labels, tick marks, and grid lines at the correct places
 			helpers.each(itemsToDraw, function(itemToDraw, index) {
-				if (gridLines.display && !me.shouldSkipGridLine()) {
+				if (gridLines.display && !me.shouldSkipGridLine(index)) {
 					context.save();
 					context.lineWidth = itemToDraw.glWidth;
 					context.strokeStyle = itemToDraw.glColor;
