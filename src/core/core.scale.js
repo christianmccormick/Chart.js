@@ -23,7 +23,8 @@ module.exports = function(Chart) {
 			zeroLineBorderDashOffset: 0.0,
 			offsetGridLines: false,
 			borderDash: [],
-			borderDashOffset: 0.0
+			borderDashOffset: 0.0,
+			skip: 0
 		},
 
 		// scale label
@@ -475,6 +476,13 @@ module.exports = function(Chart) {
 				0;
 		},
 
+		// Used to check if the grid line should be drawn or skipped
+		shouldSkipGridLine: function(index) {
+			var me = this;
+			var options = me.options;
+			return options.gridLines.skip && index > 0 && index % options.gridLines.skip !== 0;
+		},
+
 		// Actually draw the scale on the canvas
 		// @param {rectangle} chartArea : the area of the chart to draw full grid lines on
 		draw: function(chartArea) {
@@ -651,8 +659,8 @@ module.exports = function(Chart) {
 			});
 
 			// Draw all of the tick labels, tick marks, and grid lines at the correct places
-			helpers.each(itemsToDraw, function(itemToDraw) {
-				if (gridLines.display) {
+			helpers.each(itemsToDraw, function(itemToDraw, index) {
+				if (gridLines.display && me.shouldSkipGridLine()) {
 					context.save();
 					context.lineWidth = itemToDraw.glWidth;
 					context.strokeStyle = itemToDraw.glColor;
