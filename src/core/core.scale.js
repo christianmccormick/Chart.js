@@ -480,7 +480,7 @@ module.exports = function(Chart) {
 		shouldSkipGridLine: function(index) {
 			var me = this;
 			var options = me.options;
-			return options.gridLines.skip && index > 0 && index % options.gridLines.skip !== 0;
+			return options.gridLines.skip > 1 && index > 0 && index % options.gridLines.skip !== 0;
 		},
 
 		// Actually draw the scale on the canvas
@@ -660,7 +660,7 @@ module.exports = function(Chart) {
 
 			// Draw all of the tick labels, tick marks, and grid lines at the correct places
 			helpers.each(itemsToDraw, function(itemToDraw, index) {
-				if (gridLines.display && me.shouldSkipGridLine()) {
+				if (gridLines.display && !me.shouldSkipGridLine()) {
 					context.save();
 					context.lineWidth = itemToDraw.glWidth;
 					context.strokeStyle = itemToDraw.glColor;
