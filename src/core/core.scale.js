@@ -587,6 +587,7 @@ module.exports = function(Chart) {
 				var tx1, ty1, tx2, ty2, x1, y1, x2, y2, labelX, labelY;
 				var textAlign = 'middle';
 				var textBaseline = 'middle';
+				var tickPadding = optionTicks.padding;
 
 				if (isHorizontal) {
 
@@ -594,12 +595,12 @@ module.exports = function(Chart) {
 						// bottom
 						textBaseline = !isRotated? 'top':'middle';
 						textAlign = !isRotated? 'center': 'right';
-						labelY = me.top + tl;
+						labelY = me.top + tl + tickPadding;
 					} else {
 						// top
 						textBaseline = !isRotated? 'bottom':'middle';
 						textAlign = !isRotated? 'center': 'left';
-						labelY = me.bottom - tl;
+						labelY = me.bottom - tl - tickPadding;
 					}
 
 					var xLineValue = me.getPixelForTick(index) + helpers.aliasPixel(lineWidth); // xvalues for grid lines
@@ -612,7 +613,6 @@ module.exports = function(Chart) {
 					y2 = chartArea.bottom;
 				} else {
 					var isLeft = options.position === 'left';
-					var tickPadding = optionTicks.padding;
 					var labelXOffset;
 
 					if (optionTicks.mirror) {
